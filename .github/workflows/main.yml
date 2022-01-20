@@ -23,5 +23,5 @@ jobs:
           resourceGroupName: 'learning'
           template: ./vnet.bicep
           deploymentMode: Incremental
-          parameters: ./vnet-param.json
+          parameters: ./vnet-params.json
           failOnStdErr: false

@@ -21,7 +21,7 @@ jobs:
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: 'learning'
-          template: vnet.bicep
+          template: ./vnet.bicep
           deploymentMode: Incremental
-          parameters: vnet-param.json
+          parameters: ./vnet-param.json
           failOnStdErr: false

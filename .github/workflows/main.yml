@@ -20,7 +20,8 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ secrets.AZURE_RG }}
-          template: ./main.bicep
-          parameters: storagePrefix=mystore
+          resourceGroupName: 'learning'
+          template: vnet.bicep
+          deploymentMode: Incremental
+          parameters: vnet-param.json
           failOnStdErr: false

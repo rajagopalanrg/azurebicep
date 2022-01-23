@@ -3,14 +3,15 @@
 name: CI
 on:
   workflow_dispatch:
-  
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -20,8 +21,10 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: 'learning'
+          resourceGroupName: "learning"
           template: ./vnet.bicep
           deploymentMode: Incremental
           parameters: ./vnet-params.json
           failOnStdErr: false
+      
+

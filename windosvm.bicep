@@ -1,25 +1,31 @@
 param location string = 'eastus'
 param computerName string = 'windowsvm'
 param adminUsername string = 'azureuser'
+
+@secure()
 param adminPassword string
+
+param vnetName string = 'vnet-rg-eastus'
+
 resource storageaccount 'Microsoft.Storage/storageAccounts@2021-02-01' existing= {
   name: 'terraformstatefilend'
 }
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' existing= {
-  name: 'name'
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2019-11-01' existing = {
+  name: vnetName
 }
 
+
 resource networkInterface 'Microsoft.Network/networkInterfaces@2020-11-01' = {
-  name: 'name'
+  name: 'nic'
   location: location
   properties: {
     ipConfigurations: [
       {
-        name: 'name'
+        name: 'config1'
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           subnet: {
-            id: 'subnet.id'
+            id: virtualNetwork.properties.subnets[0].id
           }
         }
       }
@@ -55,7 +61,7 @@ resource windowsVM 'Microsoft.Compute/virtualMachines@2020-12-01' = {
     networkProfile: {
       networkInterfaces: [
         {
-          id: 'id'
+          id: networkInterface.id
         }
       ]
     }

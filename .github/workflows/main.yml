@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: Development
     steps:
       - uses: actions/checkout@v2
 
@@ -17,7 +17,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Deploy Bicep file
-      - name: deploy
+      - name: deploy vnet
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -26,5 +26,13 @@ jobs:
           deploymentMode: Incremental
           parameters: ./vnet-params.json
           failOnStdErr: false
-      
+      - name: deploy ubuntu vm
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: "learning"
+          template: ./windowsvm.bicep
+          deploymentMode: Incremental
+          parameters: adminPassword=${{ secrets.ADMIN_PASSWORD }}
+          failOnStdErr: false
 

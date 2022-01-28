@@ -3,7 +3,11 @@
 name: CI
 on:
   workflow_dispatch:
-
+    inputs:
+      createVnet:
+        type: boolean
+        required: true
+        description: "Disable create vnet"
 
 jobs:
   build:
@@ -19,7 +23,7 @@ jobs:
       # Deploy Bicep file
       - name: deploy vnet
         uses: azure/arm-deploy@v1
-        if: ${{ false }}
+        if: ${{ github.event.inputs.createVnet }}
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "learning"

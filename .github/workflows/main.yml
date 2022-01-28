@@ -18,7 +18,8 @@ jobs:
 
       # Deploy Bicep file
       - name: deploy vnet
-        uses: azure/arm-deploy@v1
+        uses: azure/arm-deploy@
+        if: ${{ false }}
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: "learning"

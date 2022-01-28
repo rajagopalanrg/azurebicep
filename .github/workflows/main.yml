@@ -18,7 +18,7 @@ jobs:
 
       # Deploy Bicep file
       - name: deploy vnet
-        uses: azure/arm-deploy@
+        uses: azure/arm-deploy@v1
         if: ${{ false }}
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
